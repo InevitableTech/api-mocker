@@ -2,6 +2,7 @@
 
 namespace Genesis\Api\Mocker\Base;
 
+use Genesis\Api\Mocker\Contract\StorageHandler;
 use Genesis\Api\Mocker\Service\Curl;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -25,7 +26,7 @@ class EndpointProvider
      * @param mixed  $rawInput
      */
     public function __construct(
-        $storageHandler,
+        StorageHandler $storageHandler,
         $server,
         $get,
         $post,
