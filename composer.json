@@ -1,0 +1,19 @@
+{
+    "name": "api-mocker",
+    "description": "Develop and run automated tests against a mock API.",
+    "require": {
+        "php": "~7.1",
+        "ext-curl": "*",
+        "react/http": "~0.8"
+    },
+    "require-dev": {
+        "behat/behat": "~3.0",
+        "imbo/behat-api-extension": "^2.2",
+        "ciaranmcnulty/behat-localwebserverextension": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Genesis\\Api\\Mocker\\": "src/"
+        }
+    }
+}
