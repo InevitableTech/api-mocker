@@ -8,6 +8,7 @@ use Genesis\Api\Mocker\Base\Dispatcher;
 use Genesis\Api\Mocker\Base\FileStorage;
 use Genesis\Api\Mocker\Base\Router;
 use Psr\Http\Message\ServerRequestInterface;
+use React\Http\Response;
 
 function calls($controller)
 {
@@ -54,7 +55,14 @@ $server = new React\Http\Server(function (ServerRequestInterface $request) {
             strtolower($request->getMethod())
         );
     } catch (Exception $e) {
-        throw new AppException($e->getMessage());
+        return new Response(
+            500,
+            [],
+            json_encode([
+                'status' => 'error',
+                'msg' => "[ERROR]: {$e->getMessage()}"
+            ])
+        );
     }
 });
 

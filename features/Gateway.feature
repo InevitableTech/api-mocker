@@ -148,6 +148,42 @@ Feature:
             }
             """
 
+    Scenario: Dynamic mock with regex pattern enforces structure
+        When the request body is:
+            """
+            {
+                "mockData": {
+                    "url": "/arya/ports/",
+                    "delete": [{
+                        "with": "/def=123/",
+                        "response_code": 206,
+                        "body": {
+                            "UUID": "yeah",
+                            "summary": "no"
+                        }
+                    }, {
+                        "response_code": 210,
+                        "body": {
+                            "id": "77"
+                        }
+                    }, {
+                        "with": "/abc=\\d+/",
+                        "response_code": 205,
+                        "headers": {"lola": "123", "baby boo": "dudu"},
+                        "body": {
+                            "UUID": "theportuuidgoeshere",
+                            "summary": "theportsummarygoeshere"
+                        }
+                    }]
+                }
+            }
+            """
+        And I request '/' using HTTP 'post'
+        Then the response code is 500
+        And the response body is:
+            """
+            {"status":"error","msg":"[ERROR]: Each response after the first must include a with regex pattern to match on."}
+            """
 
     Scenario: Dynamic mock with consecutive response
         When the request body is:
