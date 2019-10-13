@@ -50,7 +50,7 @@ class MultiResponse
         return $responseContent;
     }
 
-    public function getWith(): string
+    public function getWith(): ?string
     {
         return $this->response['with'];
     }

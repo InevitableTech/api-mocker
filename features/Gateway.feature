@@ -96,14 +96,19 @@ Feature:
                 "mockData": {
                     "url": "/arya/ports/",
                     "delete": [{
-                        "with": "def=123",
+                        "response_code": 210,
+                        "body": {
+                            "id": "77"
+                        }
+                    }, {
+                        "with": "/def=123/",
                         "response_code": 206,
                         "body": {
                             "UUID": "yeah",
                             "summary": "no"
                         }
                     }, {
-                        "with": "abc=\\d+",
+                        "with": "/abc=\\d+/",
                         "response_code": 205,
                         "headers": {"lola": "123", "baby boo": "dudu"},
                         "body": {
@@ -133,6 +138,16 @@ Feature:
                 "summary": "theportsummarygoeshere"
             }
             """
+
+        When I request '/arya/ports/' using HTTP "delete"
+        Then the response code is 210
+        And the response body contains JSON:
+            """
+            {
+                "id": "77"
+            }
+            """
+
 
     Scenario: Dynamic mock with consecutive response
         When the request body is:
@@ -381,7 +396,7 @@ Feature:
                 "mockData": {
                     "url": "/countries/list/another/",
                     "get": [{
-                        "with": "filter=true",
+                        "with": "/filter=true/",
                         "body": {
                             "just another json": "object"
                         }
@@ -396,5 +411,5 @@ Feature:
         Then the response code is 200
         And the response body is:
             """
-            {"\/tmp\/countries---list.json":"{\"get\":[{\"headers\":{\"lola\":\"123\",\"baby boo\":\"dudu\",\"X-server\":\"nginx\",\"set-cookies\":[\"lkh=65765\"]},\"proxy\":{\"url\":\"http:\\\/\\\/google.com\",\"headers\":{\"app-id\":\"88374783847\"}},\"with\":\".*\"}]}","\/tmp\/countries---list---another.json":"{\"get\":[{\"with\":\"filter=true\",\"body\":{\"just another json\":\"object\"}}]}"}
+            {"\/tmp\/countries---list.json":"{\"get\":[{\"headers\":{\"lola\":\"123\",\"baby boo\":\"dudu\",\"X-server\":\"nginx\",\"set-cookies\":[\"lkh=65765\"]},\"proxy\":{\"url\":\"http:\\\/\\\/google.com\",\"headers\":{\"app-id\":\"88374783847\"}},\"with\":null}]}","\/tmp\/countries---list---another.json":"{\"get\":[{\"with\":\"\\\/filter=true\\\/\",\"body\":{\"just another json\":\"object\"}}]}"}
             """

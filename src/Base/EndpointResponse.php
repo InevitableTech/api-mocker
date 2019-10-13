@@ -41,7 +41,7 @@ class EndpointResponse
                         $singleBody['body'] ?? null,
                         $singleBody['headers'] ?? [],
                         $singleBody['response_code'] ?? null,
-                        $response['with'],
+                        $response['with'] ?? null,
                         $singleBody['proxy'] ?? []
                     );
 
@@ -56,7 +56,7 @@ class EndpointResponse
                     $response['body'] ?? null,
                     $response['headers'] ?? [],
                     $response['response_code'] ?? null,
-                    $response['with'],
+                    $response['with'] ?? null,
                     $response['proxy'] ?? []
                 );
             }
@@ -97,17 +97,26 @@ class EndpointResponse
             return null;
         }
 
-        $methodResponse = null;
+        $successor = null;
         foreach ($this->response[$method] as $response) {
-            if (preg_match('|' . $response->getWith() . '|', $url) === 1) {
-                if ($response instanceof MultiResponse) {
-                    $methodResponse = $response->getNext();
-                    break;
+            $with = $response->getWith();
+            if ($with) {
+                $result = preg_match($with, $url);
+                if ($result === 1) {
+                    $successor = $response;
+                } elseif ($result === false) {
+                    throw new AppException("Regex pattern '$with' is invalid.");
                 }
-
-                $methodResponse = $response;
-                break;
+            } else {
+                $successor = $response;
             }
+        }
+
+        $methodResponse = null;
+        if ($successor instanceof MultiResponse) {
+            $methodResponse = $successor->getNext();
+        } else {
+            $methodResponse = $successor;
         }
 
         if ($methodResponse && $proxy = $methodResponse->getProxy()) {

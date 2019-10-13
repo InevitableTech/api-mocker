@@ -13,7 +13,7 @@ class MethodResponse
     private $with;
     private $proxy = [];
 
-    public function __construct($body = null, array $headers = [], int $statusCode = null, string $with = '.*', array $proxy = [])
+    public function __construct($body = null, array $headers = [], int $statusCode = null, string $with = null, array $proxy = [])
     {
         $this->body = $body;
         $this->headers = $headers;
@@ -67,12 +67,12 @@ class MethodResponse
         return $this->body;
     }
 
-    public function getProxy()
+    public function getProxy(): array
     {
         return $this->proxy;
     }
 
-    public function getWith()
+    public function getWith(): ?string
     {
         return $this->with;
     }

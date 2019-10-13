@@ -157,7 +157,15 @@ class EndpointProvider
     }
 
     /**
-     * 
+     * {
+     *    "url": "/arya/ports/abc123",
+     *    "get": [{
+     *        "body": {
+     *            "UUID": "theportuuidgoeshere",
+     *            "summary": "theportsummarygoeshere"
+     *        }
+     *    }]
+     * }.
      *
      * @return string
      * @param  mixed  $response
@@ -180,6 +188,8 @@ class EndpointProvider
             if (!is_array($responseContent)) {
                 continue;
             }
+
+            $this->checkIntegrityOfResponses($responseContent);
             foreach ($responseContent as $index => $singleResponse) {
                 if (isset($existingData[$responseType])) {
                     throw new AppException(sprintf(
@@ -189,8 +199,10 @@ class EndpointProvider
                 }
 
                 if (!isset($singleResponse['with'])) {
-                    $response[$responseType][$index]['with'] = '.*';
-                };
+                    $response[$responseType][$index]['with'] = null;
+                } elseif (preg_match($singleResponse['with'], null) === false) {
+                    throw new AppException("Regex pattern '{$singleResponse['with']}' is invalid.");
+                }
 
                 if (isset($singleResponse['multi_body'])) {
                     $response[$responseType][$index]['index'] = 0;
@@ -212,6 +224,19 @@ class EndpointProvider
         }
 
         return new MethodResponse(['status' => 'OK', 'mock' => $response], [], 200);
+    }
+
+    private function checkIntegrityOfResponses(array $responses)
+    {
+        foreach ($responses as $index => $response) {
+            if ($index === 0) {
+                continue;
+            }
+
+            if (!isset($response['with'])) {
+                throw new AppException('Each response after the first must include a with regex pattern to match on.');
+            }
+        }
     }
 
     public static function forward(string $domain, $body = null, array $headers = [])

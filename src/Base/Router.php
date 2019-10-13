@@ -37,10 +37,7 @@ class Router
         try {
             $path = $request->getUri()->getPath() ?? '/';
             $method = strtolower($request->getMethod());
-
-            error_log('the path looking for:' . $path);
             $contents = (new FileStorage())->get(EndpointProvider::endpoint($path));
-            error_log('found or not: ' . print_r($contents, true));
 
             if (isset($contents[$method])) {
                 foreach ($contents[$method] as $response) {
