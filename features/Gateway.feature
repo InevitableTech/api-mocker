@@ -22,6 +22,43 @@ Feature:
     #         }
     #         """
 
+    Scenario: fallback to static response when no dynamic request matches
+        When the request body is:
+            """
+            {
+                "mockData": {
+                    "url": "/arya/ports/abc123",
+                    "get": [{
+                        "with": "/id=abc/",
+                        "body": {
+                            "UUID": "theportuuidgoeshere",
+                            "summary": "theportsummarygoeshere"
+                        }
+                    }]
+                }
+            }
+            """
+        And I request '/' using HTTP 'post'
+        Then the response code is 200
+
+        When I request '/arya/destinations' using HTTP 'get'
+        Then the response code is 200
+        And the "Access-Control-Allow-Headers" response header is "*"
+        And the "Access-Control-Allow-Origin" response header is "*"
+        And the response body contains JSON:
+            """
+            {
+                "status": "success",
+                "data": [
+                    {
+                        "UUID": "436884F0-6B5B-11E9-AFB8-6F0A7BD2CFEC",
+                        "summary": "Africa",
+                        "parent": null
+                    }
+                ]
+            }
+            """
+
     Scenario: Dynamic mock with single response and defaults
         When the request body is:
             """

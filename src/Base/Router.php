@@ -41,7 +41,9 @@ class Router
 
             if (isset($contents[$method])) {
                 foreach ($contents[$method] as $response) {
-                    if (preg_match($response['with'], (string) $request->getUri())) {
+                    if ($response['with'] === null) {
+                        return EndpointProvider::class;
+                    } elseif (preg_match($response['with'], (string) $request->getUri())) {
                         return EndpointProvider::class;
                     }
                 }
