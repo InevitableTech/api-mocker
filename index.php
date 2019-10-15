@@ -67,8 +67,8 @@ $server = new React\Http\Server(function (ServerRequestInterface $request) {
 });
 
 // Make this configurable.
-$port = 8989;
-$socket = new React\Socket\Server($port, $loop);
+$uri = '0.0.0.0:8989';
+$socket = new React\Socket\Server($uri, $loop);
 $server->listen($socket);
 
 $server->on('error', function (Exception $e) {
@@ -79,5 +79,5 @@ $server->on('error', function (Exception $e) {
     }
 });
 
-echo 'Listening on: http://localhost:' . $port . PHP_EOL;
+echo 'Listening on: http://' . $uri . PHP_EOL;
 $loop->run();

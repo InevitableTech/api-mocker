@@ -29,7 +29,8 @@ class FileStorage implements StorageHandler
 
     public function get(string $endpoint): array
     {
-        $filename = $this->getFile($endpoint);
+        $filename = $this->noramlise($endpoint);
+        $filename = $this->getFile($filename);
 
         if (!file_exists($filename)) {
             throw new AppException('Filename ' . $filename . ' not found.');
@@ -80,7 +81,7 @@ class FileStorage implements StorageHandler
      */
     private function noramlise(string $endpoint): string
     {
-        return $endpoint;
+        return hash('md5', $endpoint);
     }
 
     private function getFile($id): string
