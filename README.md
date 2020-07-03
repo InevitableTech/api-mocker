@@ -41,28 +41,45 @@ Full mock data options:
 ```json
 {
     "mockData": {
-        "url": "/user/abc123", //  The URI to mock.
-        "get": [{ // The method type to mock for.
-            "with": "/abc123/", // Regex pattern to match on for the url.
-            "response_code": 301, // The response code to return.
-            "headers": {"lola": "123", "baby boo": "dudu"}, // The headers to return.
-            "consecutive_responses": [{ // On consecutive calls return one after the other. Supports response_code, headers and body.
-                "..."
-            }],
-            "body": { // Standard response, define multiple using with expression.
+        "url": "/user/abc123",
+        "get": [{
+            "with": "/abc123/",
+            "response_code": 301,
+            "headers": {"lola": "123", "baby boo": "dudu"},
+            "body": {
                 "id": "abc123",
                 "name": "Wahab Qureshi"
             },
-            "proxy": { // Proxy the response through another site.
+            "proxy": {
                 "url": "http://google.com",
                 "headers": {
-                    "app-id": "88374783847"
+                    "app-token": "88374783847"
                 }
-            }
+            },
+            "consecutive_responses": [{
+                "response_code": 205,
+                "body": {
+                    "id": "abc123",
+                    "name": "Wahab Qureshi"
+                }
+            }, {
+                "response_code": 500,
+                "body": "internal server error"
+            }]
         }]
      }
 }
 ```
+
+`mockData (object)`: Contains mock request information.
+`mockData.url (string)`: The URL to mock, can be an existing statically mocked URL.
+`mockData.<METHOD> ([]object)`: The method to mock for the URL.
+`mockData.<METHOD>.with (?string)`: A regex pattern to be applied to the URL optionally.
+`mockData.<METHOD>.response_code (?int)`: The response code to return optionally.
+`mockData.<METHOD>.headers (?object)`: The headers to return.
+`mockData.<METHOD>.body (mixed)`: The response content.
+`mockData.<METHOD>.consecutive_responses (?[]object)`: On consecutive calls return one after the other. Supports response_code, headers and body.
+`mockData.<METHOD>.proxy (?object)`: Proxy the response through another URL.
 
 Purge dynamic mocks
 -----
