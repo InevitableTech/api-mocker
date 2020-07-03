@@ -9,7 +9,7 @@ class MultiResponse
 {
     public function __construct($response)
     {
-        if (! isset($response['multi_body'])) {
+        if (! isset($response['consecutive_responses'])) {
             throw new \Exception('Data must contain multi body index for MultiResponse: ' .
                 print_r($response, true));
         }
@@ -19,18 +19,18 @@ class MultiResponse
 
     public function get($index): ?MethodResponse
     {
-        return $this->response['multi_body'][$index];
+        return $this->response['consecutive_responses'][$index];
     }
 
     public function getNext(): ?MethodResponse
     {
         $index = $this->response['index'];
 
-        if (! isset($this->response['multi_body'][$index])) {
+        if (! isset($this->response['consecutive_responses'][$index])) {
             return null;
         }
 
-        $response = $this->response['multi_body'][$index];
+        $response = $this->response['consecutive_responses'][$index];
         $this->response['index'] += 1;
 
         return $response;
@@ -40,8 +40,8 @@ class MultiResponse
     {
         $responseContent = [];
 
-        foreach ($this->response['multi_body'] as $response) {
-            $responseContent['multi_body'][] = $response->getArray();
+        foreach ($this->response['consecutive_responses'] as $response) {
+            $responseContent['consecutive_responses'][] = $response->getArray();
         }
 
         $responseContent['index'] = $this->response['index'];

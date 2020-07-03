@@ -30,14 +30,14 @@ class EndpointResponse
     {
         $prepped = [];
         foreach ($responses as $response) {
-            if (isset($response['multi_body'])) {
+            if (isset($response['consecutive_responses'])) {
                 $responseContent = [
                     'index' => $response['index'] ?? null,
                     'with' => $response['with'] ?? null,
-                    'multi_body' => []
+                    'consecutive_responses' => []
                 ];
-                foreach ($response['multi_body'] as $index => $singleBody) {
-                    $responseContent['multi_body'][] = new MethodResponse(
+                foreach ($response['consecutive_responses'] as $index => $singleBody) {
+                    $responseContent['consecutive_responses'][] = new MethodResponse(
                         $singleBody['body'] ?? null,
                         $singleBody['headers'] ?? [],
                         $singleBody['response_code'] ?? null,

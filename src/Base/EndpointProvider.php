@@ -204,7 +204,7 @@ class EndpointProvider
                     throw new AppException("Regex pattern '{$singleResponse['with']}' is invalid.");
                 }
 
-                if (isset($singleResponse['multi_body'])) {
+                if (isset($singleResponse['consecutive_responses'])) {
                     $response[$responseType][$index]['index'] = 0;
                 }
             }

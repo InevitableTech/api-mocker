@@ -229,7 +229,7 @@ Feature:
                 "mockData": {
                     "url": "/arya/ports/abc",
                     "put": [{
-                        "multi_body": [{
+                        "consecutive_responses": [{
                             "response_code": 205,
                             "headers": {"lola": "123", "baby boo": "dudu"},
                             "body": {

@@ -41,13 +41,21 @@ Full mock data options:
     "mockData": {
         "url": "/user/abc123", //  The URI to mock.
         "get": [{ // The method type to mock for.
-            "with": "", // Regex pattern to match on for the url.
-            "multi_body": [{ // On consecutive calls return one after the other.
+            "with": "/abc123/", // Regex pattern to match on for the url.
+            "response_code": 301, // The response code to return.
+            "headers": {"lola": "123", "baby boo": "dudu"}, // The headers to return.
+            "consecutive_responses": [{ // On consecutive calls return one after the other. Supports response_code, headers and body.
                 "..."
             }],
-            "body": { // Standard response
+            "body": { // Standard response, define multiple using with expression.
                 "id": "abc123",
                 "name": "Wahab Qureshi"
+            },
+            "proxy": { // Proxy the response through another site.
+                "url": "http://google.com",
+                "headers": {
+                    "app-id": "88374783847"
+                }
             }
         }]
      }
