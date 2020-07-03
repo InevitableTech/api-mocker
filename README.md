@@ -72,13 +72,21 @@ Full mock data options:
 ```
 
 `mockData (object)`: Contains mock request information.
+
 `mockData.url (string)`: The URL to mock, can be an existing statically mocked URL.
+
 `mockData.<METHOD> ([]object)`: The method to mock for the URL.
+
 `mockData.<METHOD>.with (?string)`: A regex pattern to be applied to the URL optionally.
+
 `mockData.<METHOD>.response_code (?int)`: The response code to return optionally.
+
 `mockData.<METHOD>.headers (?object)`: The headers to return.
+
 `mockData.<METHOD>.body (mixed)`: The response content.
+
 `mockData.<METHOD>.consecutive_responses (?[]object)`: On consecutive calls return one after the other. Supports response_code, headers and body.
+    
 `mockData.<METHOD>.proxy (?object)`: Proxy the response through another URL.
 
 Purge dynamic mocks
