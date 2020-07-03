@@ -34,6 +34,8 @@ To mock a request `POST` your mocking request to `/mocks` with `mockData` json. 
 }
 ```
 
+You can override a static mock with a dynamic one. Purging the mocks will revert the back to the static mock.
+
 Full mock data options:
 
 ```json
