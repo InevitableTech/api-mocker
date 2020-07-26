@@ -3,24 +3,24 @@ Feature:
     As a test automation expert
     I want to try out some sample scenarios
 
-    # Scenario: Static request
-    #     When I request '/countries/list' using HTTP 'get'
-    #     Then the response code is 200
-    #     And the "Access-Control-Allow-Headers" response header is "*"
-    #     And the "Access-Control-Allow-Origin" response header is "*"
-    #     And the response body contains JSON:
-    #         """
-    #         {
-    #             "status": "success",
-    #             "data": [
-    #                 {
-    #                     "UUID": "436884F0-6B5B-11E9-AFB8-6F0A7BD2CFEC",
-    #                     "summary": "Africa",
-    #                     "parent": null
-    #                 }
-    #             ]
-    #         }
-    #         """
+    Scenario: Static request
+        When I request '/countries/list' using HTTP 'get'
+        Then the response code is 200
+        And the "Access-Control-Allow-Headers" response header is "*"
+        And the "Access-Control-Allow-Origin" response header is "*"
+        And the response body contains JSON:
+            """
+            {
+                "status": "success",
+                "data": [
+                    {
+                        "UUID": "436884F0-6B5B-11E9-AFB8-6F0A7BD2CFEC",
+                        "summary": "Africa",
+                        "parent": null
+                    }
+                ]
+            }
+            """
 
     Scenario: fallback to static response when no dynamic request matches
         When the request body is:
@@ -484,5 +484,5 @@ Feature:
         Then the response code is 200
         And the response body is:
             """
-            {"\/tmp\/32ec1acdc7efc0ec66fec754e87d2158.json":"{\"get\":[{\"headers\":{\"lola\":\"123\",\"baby boo\":\"dudu\",\"X-server\":\"nginx\",\"set-cookies\":[\"lkh=65765\"]},\"proxy\":{\"url\":\"http:\\\/\\\/google.com\",\"headers\":{\"app-id\":\"88374783847\"}},\"with\":null}]}","\/tmp\/034beec6e8bd857d12a44b257fb78d3f.json":"{\"get\":[{\"with\":\"\\\/filter=true\\\/\",\"body\":{\"just another json\":\"object\"}}]}"}
+            abc
             """
