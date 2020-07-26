@@ -2,6 +2,7 @@
 
 namespace Genesis\Api\Mocker;
 
+use DirectoryIterator;
 use Genesis\Api\Mocker\Base\EndpointProvider;
 use Genesis\Api\Mocker\Base\MethodResponse;
 
@@ -9,15 +10,27 @@ class Mocks extends EndpointProvider
 {
     public function get(): MethodResponse
     {
+        // Static configuration
+        $static = [];
+        $directory = new DirectoryIterator(StaticCaller::STATIC_DIR);
+        foreach ($directory as $fileinfo) {
+            if (!$fileinfo->isDot()) {
+                $static[$fileinfo->getFilename()] = file_get_contents($fileinfo->getPathname());
+            }
+        }
+
         $index = self::$storageHandler->getIndex();
 
-        $mocks = [];
+        $dynamic = [];
         foreach ($index as $file) {
-            $mocks[$file] = file_get_contents($file);
+            $dynamic[$file] = file_get_contents($file);
         }
 
         return new MethodResponse(
-            $mocks
+            [
+                'static' => $static,
+                'dynamic' => $dynamic
+            ]
         );
     }
 }

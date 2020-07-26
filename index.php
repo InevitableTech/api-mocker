@@ -71,7 +71,7 @@ $uri = '0.0.0.0:8989';
 $socket = new React\Socket\Server($uri, $loop);
 $server->listen($socket);
 
-$server->on('error', function (Exception $e) {
+$server->on('error', function (Exception $e): void {
     echo 'Error: ' . $e->getMessage() . PHP_EOL;
     if ($e->getPrevious() !== null) {
         $previousException = $e->getPrevious();

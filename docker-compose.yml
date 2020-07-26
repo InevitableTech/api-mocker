@@ -3,19 +3,8 @@ version: '3.3'
 services:
   mock-api:
     build: .
-    working_dir: $PWD
     ports:
       - "8989:8989"
     volumes:
-      - $PWD:$PWD
+      - .:/app
     command: nodemon --watch . index.php
-    networks:
-      default:
-        aliases:
-          - api.mock.docker
-      proxy:
-
-networks:
-  default:
-  proxy:
-    external: true

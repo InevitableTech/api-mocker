@@ -27,7 +27,7 @@ Feature:
             """
             {
                 "mockData": {
-                    "url": "/arya/ports/abc123",
+                    "url": "/testing/ports/abc123",
                     "get": [{
                         "with": "/id=abc/",
                         "body": {
@@ -41,7 +41,7 @@ Feature:
         And I request '/' using HTTP 'post'
         Then the response code is 200
 
-        When I request '/arya/destinations' using HTTP 'get'
+        When I request '/testing/destinations' using HTTP 'get'
         Then the response code is 200
         And the "Access-Control-Allow-Headers" response header is "*"
         And the "Access-Control-Allow-Origin" response header is "*"
@@ -64,7 +64,7 @@ Feature:
             """
             {
                 "mockData": {
-                    "url": "/arya/ports/abc123",
+                    "url": "/testing/ports/abc123",
                     "get": [{
                         "body": {
                             "UUID": "theportuuidgoeshere",
@@ -77,7 +77,7 @@ Feature:
         And I request '/' using HTTP 'post'
         Then the response code is 200
 
-        When I request '/arya/ports/abc123'
+        When I request '/testing/ports/abc123'
         Then the response code is 200
         And the "Access-Control-Allow-Headers" response header is "*"
         And the "Access-Control-Allow-Origin" response header is "*"
@@ -94,7 +94,7 @@ Feature:
             """
             {
                 "mockData": {
-                    "url": "/arya/ports/abc123",
+                    "url": "/testing/ports/abc123",
                     "post": [{
                         "response_code": 205,
                         "headers": {"lola": "123", "baby boo": "dudu"},
@@ -112,7 +112,7 @@ Feature:
         When the request body is:
             """
             """
-        And I request '/arya/ports/abc123' using HTTP "post"
+        And I request '/testing/ports/abc123' using HTTP "post"
         Then the response code is 205
         And the "Access-Control-Allow-Headers" response header is "*"
         And the "Access-Control-Allow-Origin" response header is "*"
@@ -131,7 +131,7 @@ Feature:
             """
             {
                 "mockData": {
-                    "url": "/arya/ports/",
+                    "url": "/testing/ports/",
                     "delete": [{
                         "response_code": 210,
                         "body": {
@@ -162,7 +162,7 @@ Feature:
         When the request body is:
             """
             """
-        And I request '/arya/ports/?abc=123' using HTTP "delete"
+        And I request '/testing/ports/?abc=123' using HTTP "delete"
         Then the response code is 205
         And the "Access-Control-Allow-Headers" response header is "*"
         And the "Access-Control-Allow-Origin" response header is "*"
@@ -176,7 +176,7 @@ Feature:
             }
             """
 
-        When I request '/arya/ports/' using HTTP "delete"
+        When I request '/testing/ports/' using HTTP "delete"
         Then the response code is 210
         And the response body contains JSON:
             """
@@ -190,7 +190,7 @@ Feature:
             """
             {
                 "mockData": {
-                    "url": "/arya/ports/",
+                    "url": "/testing/ports/",
                     "delete": [{
                         "with": "/def=123/",
                         "response_code": 206,
@@ -227,7 +227,7 @@ Feature:
             """
             {
                 "mockData": {
-                    "url": "/arya/ports/abc",
+                    "url": "/testing/ports/abc",
                     "put": [{
                         "consecutive_responses": [{
                             "response_code": 205,
@@ -255,7 +255,7 @@ Feature:
         When the request body is:
             """
             """
-        When I request '/arya/ports/abc' using HTTP "PUT"
+        When I request '/testing/ports/abc' using HTTP "PUT"
         Then the response code is 205
         Then the "lola" response header is "123"
         And the "baby boo" response header is "dudu"
@@ -267,7 +267,7 @@ Feature:
             }
             """
 
-        When I request '/arya/ports/abc' using HTTP "PUT"
+        When I request '/testing/ports/abc' using HTTP "PUT"
         Then the response code is 200
         Then the "lola" response header does not exist
         And the "baby boo" response header does not exist
@@ -279,13 +279,13 @@ Feature:
             }
             """
 
-        When I request '/arya/ports/abc' using HTTP "PUT"
+        When I request '/testing/ports/abc' using HTTP "PUT"
         Then the response code is 500
         Then the "lola" response header does not exist
         And the "baby boo" response header does not exist
         And the response body is an empty JSON object
 
-        When I request '/arya/ports/abc' using HTTP "PUT"
+        When I request '/testing/ports/abc' using HTTP "PUT"
         Then the response code is 200
         Then the "lola" response header does not exist
         And the "baby boo" response header does not exist

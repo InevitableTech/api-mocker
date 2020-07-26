@@ -2,6 +2,7 @@
 
 namespace Genesis\Api\Mocker\Base;
 
+use Genesis\Api\Mocker\StaticCaller;
 use React\Http\Response;
 
 /**
@@ -12,13 +13,12 @@ class Dispatcher
     /**
      * @param EndpointProvider $controller
      * @param string           $method
-     *
-     * @return void
      */
-    public static function dispatch(EndpointProvider $controller, string $method)
+    public static function dispatch(EndpointProvider $controller, string $method): Response
     {
         $responseClass = $controller->responseType();
 
+        $methodResponse = null;
         if ($controller->isPurgeRequest()) {
             error_log('received purge request...');
             $methodResponse = $controller->purge();
@@ -28,6 +28,8 @@ class Dispatcher
             $controller->validate();
             error_log('mocked: ' . $method);
             $methodResponse = $controller->consume($controller::$rawInput['mockData']);
+        } elseif ($controller instanceof StaticCaller) {
+            $methodResponse = $controller->warmUp()->$method();
         } else {
             error_log('received response request...');
             $methodResponse = $controller->$method();

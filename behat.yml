@@ -12,7 +12,3 @@ default:
               base_uri: http://localhost:8989
               timeout: 5.0
               verify: false
-        # Cjm\Behat\LocalWebserverExtension:
-        #     docroot: '%paths.base%/features/bootstrap/Gateway'
-        #     host : 127.0.0.1
-        #     port: 8989

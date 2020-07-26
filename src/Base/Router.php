@@ -30,7 +30,7 @@ class Router
      * @param  mixed  $server
      * @param  mixed  $request
      */
-    public static function getControllerForUrl($url, $routes, $request)
+    public static function getControllerForUrl($url, $routes, $request): string
     {
         $server = $request->getServerParams();
 
@@ -52,14 +52,21 @@ class Router
             // If failed, continue with static checks.
         }
 
+        // Check for a static match definition.
         if (isset($routes[$url])) {
             return $routes[$url]['controller'];
         }
 
+        // Preg match with the definitions.
         foreach ($routes as $route => $controller) {
-            if (preg_match('|^'. $route . '$|i', $url)) {
+            if (preg_match('|^'. preg_quote($route) . '$|i', $url)) {
                 return $controller['controller'];
             }
+        }
+
+        // If all matches have failed and a catch all is defined, use that controller.
+        if (isset($routes['*'])) {
+            return $routes['*']['controller'];
         }
 
         return EndpointProvider::class;

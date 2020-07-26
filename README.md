@@ -6,13 +6,14 @@ Have an application that depends on an API but is too much of a burden on testin
 Start mocker:
 
 ```
-docker-compose up
+composer install
+docker-compose up -d
 ```
 
 Static mocks
 ------
 
-You can add your static routes (ones that will be available as soon as you boot up the mock API) in the routing.php file.
+You can add your static routes (ones that will be available as soon as you boot up the mock API) in the routing.php file or just place your mock request in the static folder. The data format is defined below and example request already exists.
 
 Dynamic mocks
 ------
@@ -89,7 +90,21 @@ Full mock data options:
     
 `mockData.<METHOD>.proxy (?object)`: Proxy the response through another URL.
 
+View mocked endpoints
+------
+
+View existing mock requests by visiting `/mocks`
+
 Purge dynamic mocks
 -----
 
 To purge all dynamic mocks created send `GET` request to `/mocks?purge=true`
+
+Development:
+-------
+
+Running tests is just a case of running the behat tests:
+
+```
+./vendor/bin/behat
+```
