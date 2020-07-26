@@ -3,6 +3,11 @@ API mocker
 
 Have an application that depends on an API but is too much of a burden on testing? Replace your API with a mock API using this package and mock requests on the fly.
 
+How to use
+-------
+
+This project is not meant to be required by composer, instead it should be used as an independent project and maintained in the same respect. Clone in your test directory.
+
 Start mocker:
 
 ```
