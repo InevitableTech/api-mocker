@@ -8,5 +8,5 @@
         "php": "php"
     },
     "restartable": "r",
-    "ext": "php"
+    "ext": "php,json"
 }

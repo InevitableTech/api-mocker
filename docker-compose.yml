@@ -7,6 +7,7 @@ services:
       - "8989:8989"
     volumes:
       - .:/app
+      - ./../../../static:/app/static
     env_file:
         - ./../../../.env
     command: nodemon --watch . index.php
