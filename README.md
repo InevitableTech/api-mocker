@@ -8,7 +8,7 @@ How to install
 
 ```
 composer require genesis/mock-api
-make -f ./vendor/genesis/api-mocker/Makefile build
+make -f ./vendor/genesis/mock-api/Makefile build
 ```
 
 Start mocker:
