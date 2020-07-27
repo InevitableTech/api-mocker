@@ -1,5 +1,5 @@
 {
-    "name": "api-mocker",
+    "name": "genesis/mock-api",
     "description": "Develop and run automated tests against a mock API.",
     "require": {
         "php": "~7.1",

@@ -3,22 +3,30 @@ API mocker
 
 Have an application that depends on an API but is too much of a burden on testing? Replace your API with a mock API using this package and mock requests on the fly.
 
-How to use
+How to install
 -------
 
-This project is not meant to be required by composer, instead it should be used as an independent project and maintained in the same respect. Clone in your test directory.
+```
+composer require genesis/mock-api
+make -f ./vendor/genesis/api-mocker/Makefile build
+```
 
 Start mocker:
 
 ```
-composer install
-docker-compose up -d
+make up
+```
+
+Stop mocker:
+
+```
+make down
 ```
 
 Static mocks
 ------
 
-You can add your static routes (ones that will be available as soon as you boot up the mock API) in the routing.php file or just place your mock request in the static folder. The data format is defined below and example request already exists.
+You can add your static routes (ones that will be available as soon as you boot up the mock API) in the static folder. The data format is defined below and example request already exists.
 
 Dynamic mocks
 ------
