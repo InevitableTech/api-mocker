@@ -9,19 +9,22 @@ How to install
 ```
 composer require genesis/mock-api
 make -f ./vendor/genesis/mock-api/Makefile build
+make install
 ```
 
-Start mocker:
+Start mock-api:
 
 ```
 make up
 ```
 
-Stop mocker:
+Stop mock-api:
 
 ```
 make down
 ```
+
+Find more commands in the generated Makefile.
 
 Static mocks
 ------
