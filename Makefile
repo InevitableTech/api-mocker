@@ -1,10 +1,9 @@
 build:
 	rm -rf static
-	rm -rf .env
+	rm -rf .mock-api-env
 	rm -rf Makefile
 	cp ./vendor/genesis/mock-api/.env.template .mock-api-env
-	rm ./vendor/genesis/mock-api/.env
-	ln .mock-api-env ./vendor/genesis/mock-api/.env
+	ln .mock-api-env ./vendor/genesis/mock-api/.env.external
 	mkdir static
 	cp -R ./vendor/genesis/mock-api/sample-static/* ./static/
 	echo 'up:' > Makefile
@@ -27,6 +26,10 @@ build:
 
 install:
 	composer install
+
+install-ci:
+	composer install
+	touch .env.external
 
 update:
 	composer update

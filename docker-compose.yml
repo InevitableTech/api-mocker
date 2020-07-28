@@ -11,5 +11,5 @@ services:
       - .:/app
       - ./../../../static:/app/static
     env_file:
-        - ./../../../.mock-api-env
+      - ${ENV_FILE}
     command: nodemon --watch . index.php

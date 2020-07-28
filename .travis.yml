@@ -6,6 +6,6 @@ branches:
     - master
 
 script:
-  - make install
+  - make install-ci
   - make up
   - ./vendor/bin/behat
