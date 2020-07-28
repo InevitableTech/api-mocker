@@ -11,5 +11,5 @@ services:
       - .:/app
       - ./../../../static:/app/static
     env_file:
-      - ${ENV_FILE}
+      - .env
     command: nodemon --watch . index.php
