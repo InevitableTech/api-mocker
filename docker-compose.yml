@@ -4,10 +4,12 @@ services:
   mock-api:
     build: .
     ports:
-      - "8989:8989"
+      - "${PORT}:${PORT}"
+    networks:
+      - "${NETWORK}"
+    env_file:
+      - .env.external
     volumes:
       - .:/app
-      - ./../../../static:/app/static
-    env_file:
-        - ./../../../.env
+      - ${API_MOCK_STATICS_DIR}:/app/static
     command: nodemon --watch . index.php

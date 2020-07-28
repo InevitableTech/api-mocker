@@ -1,0 +1,13 @@
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+script:
+  - make install-ci
+  - make up
+  - make config
+  - docker-compose logs -f &
+  - ./vendor/bin/behat

@@ -29,6 +29,7 @@ class StaticCaller extends EndpointProvider
         $size = $directory->getSize();
 
         if (self::$size === $size) {
+            error_log('Already warm, skipping...');
             return $this;
         }
 

@@ -482,7 +482,16 @@ Feature:
 
         When I request "/mocks" using HTTP 'get'
         Then the response code is 200
-        And the response body is:
+        And the response body contains JSON:
             """
-            abc
+            {
+                "static": {
+                    "example.json": "@variableType(string)",
+                    "example2.json": "@variableType(string)"
+                },
+                "dynamic": {
+                    "/tmp/034beec6e8bd857d12a44b257fb78d3f.json": "@variableType(string)",
+                    "/tmp/32ec1acdc7efc0ec66fec754e87d2158.json": "@variableType(string)"
+                }
+            }
             """

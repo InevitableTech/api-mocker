@@ -1,4 +1,4 @@
-API mocker
+API mocker [![Build Status](https://travis-ci.com/forceedge01/api-mocker.svg?branch=master)](https://travis-ci.com/forceedge01/api-mocker) [![Latest Stable Version](https://poser.pugx.org/genesis/mock-api/v)](//packagist.org/packages/genesis/mock-api) [![License](https://poser.pugx.org/genesis/mock-api/license)](//packagist.org/packages/genesis/mock-api) [![Latest Unstable Version](https://poser.pugx.org/genesis/mock-api/v/unstable)](//packagist.org/packages/genesis/mock-api)
 ------
 
 Have an application that depends on an API but is too much of a burden on testing? Replace your API with a mock API using this package and mock requests on the fly.
