@@ -1,0 +1,10 @@
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+script:
+  - make install
+  - ./vendor/bin/behat
