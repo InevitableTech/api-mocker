@@ -3,6 +3,8 @@ build:
 	rm -rf .env
 	rm -rf Makefile
 	cp ./vendor/genesis/mock-api/.env.template .mock-api-env
+	rm ./vendor/genesis/mock-api/.env
+	ln .mock-api-env ./vendor/genesis/mock-api/.env
 	mkdir static
 	cp -R ./vendor/genesis/mock-api/sample-static/* ./static/
 	echo 'up:' > Makefile
@@ -19,6 +21,9 @@ build:
 	echo '' >> Makefile
 	echo 'logs:' >> Makefile
 	echo '	$$(MAKE) -C ./vendor/genesis/mock-api logs' >> Makefile
+	echo '' >> Makefile
+	echo 'config:' >> Makefile
+	echo '	$$(MAKE) -C ./vendor/genesis/mock-api config' >> Makefile
 
 install:
 	composer install
@@ -34,3 +39,6 @@ down:
 
 logs:
 	docker-compose logs -f
+
+config:
+	docker-compose config
