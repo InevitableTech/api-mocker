@@ -484,5 +484,5 @@ Feature:
         Then the response code is 200
         And the response body is:
             """
-            abc
+            {"static":[],"dynamic":{"\/tmp\/32ec1acdc7efc0ec66fec754e87d2158.json":"{\"get\":[{\"headers\":{\"lola\":\"123\",\"baby boo\":\"dudu\",\"X-server\":\"nginx\",\"set-cookies\":[\"lkh=65765\"]},\"proxy\":{\"url\":\"http:\\\/\\\/google.com\",\"headers\":{\"app-id\":\"88374783847\"}},\"with\":null}]}","\/tmp\/034beec6e8bd857d12a44b257fb78d3f.json":"{\"get\":[{\"with\":\"\\\/filter=true\\\/\",\"body\":{\"just another json\":\"object\"}}]}"}}
             """
