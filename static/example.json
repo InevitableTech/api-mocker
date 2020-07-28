@@ -1,0 +1,18 @@
+{
+    "mockData": {
+        "url": "/countries/list",
+        "get": [{
+            "body": {
+                "response_code": 200,
+                "status": "success",
+                "data": [
+                    {
+                        "UUID": "436884F0-6B5B-11E9-AFB8-6F0A7BD2CFEC",
+                        "summary": "Africa",
+                        "parent": null
+                    }
+                 ]
+             }
+        }]
+    }
+}

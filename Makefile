@@ -31,8 +31,10 @@ install:
 
 install-ci:
 	composer install
+	cp -R sample-static static
 	cp .env.template .env
 	cp .env.external.template .env.external
+	echo "API_MOCK_STATICS_DIR=./static" >> .env
 
 update:
 	composer update
