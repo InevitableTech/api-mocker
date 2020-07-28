@@ -7,9 +7,9 @@ services:
       - "${PORT}:${PORT}"
     networks:
       - "${NETWORK}"
+    env_file:
+      - .env.external
     volumes:
       - .:/app
       - ./../../../static:/app/static
-    env_file:
-      - .env
     command: nodemon --watch . index.php

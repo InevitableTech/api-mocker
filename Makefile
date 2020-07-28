@@ -1,9 +1,11 @@
 build:
 	rm -rf static
-	rm -rf .mock-api-env
+	rm -rf .env.mockapi-config .env.mockapi-external ./vendor/genesis/mock-api/.env ./vendor/genesis/mock-api/.env.external
 	rm -rf Makefile
-	cp ./vendor/genesis/mock-api/.env.template .mock-api-env
-	ln .mock-api-env ./vendor/genesis/mock-api/.env
+	cp ./vendor/genesis/mock-api/.env.template .env.mockapi-config
+	cp ./vendor/genesis/mock-api/.env.external.template .env.mockapi-external
+	ln .env.mockapi-config ./vendor/genesis/mock-api/.env
+	ln .env.mockapi-external ./vendor/genesis/mock-api/.env.external
 	mkdir static
 	cp -R ./vendor/genesis/mock-api/sample-static/* ./static/
 	echo 'up:' > Makefile
@@ -30,12 +32,13 @@ install:
 install-ci:
 	composer install
 	cp .env.template .env
+	cp .env.external.template .env.external
 
 update:
 	composer update
 
 up:
-	docker-compose up -d mock-api
+	docker-compose up -d --force-recreate mock-api
 
 down:
 	docker-compose down
