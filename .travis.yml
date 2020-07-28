@@ -7,4 +7,5 @@ branches:
 
 script:
   - make install
+  - make up
   - ./vendor/bin/behat
