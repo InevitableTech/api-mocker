@@ -2,7 +2,7 @@ build:
 	rm -rf static
 	rm -rf .env
 	rm -rf Makefile
-	cp ./vendor/genesis/mock-api/.env.template .env
+	cp ./vendor/genesis/mock-api/.env.template .mock-api-env
 	mkdir static
 	cp -R ./vendor/genesis/mock-api/sample-static/* ./static/
 	echo 'up:' > Makefile
