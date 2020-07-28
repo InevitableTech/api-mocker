@@ -9,4 +9,5 @@ script:
   - make install-ci
   - make up
   - docker-compose logs -f &
+  - sleep 5
   - ./vendor/bin/behat
