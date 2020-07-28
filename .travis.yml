@@ -8,4 +8,5 @@ branches:
 script:
   - make install-ci
   - make up
+  - docker-compose logs -f &
   - ./vendor/bin/behat
