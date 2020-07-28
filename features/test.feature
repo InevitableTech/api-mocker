@@ -482,7 +482,16 @@ Feature:
 
         When I request "/mocks" using HTTP 'get'
         Then the response code is 200
-        And the response body is:
+        And the response body contains JSON:
             """
-            {"static":{"example.json":"{\n    \"mockData\": {\n        \"url\": \"\/countries\/list\",\n        \"get\": [{\n            \"body\": {\n                \"response_code\": 200,\n                \"status\": \"success\",\n                \"data\": [\n                    {\n                        \"UUID\": \"436884F0-6B5B-11E9-AFB8-6F0A7BD2CFEC\",\n                        \"summary\": \"Africa\",\n                        \"parent\": null\n                    }\n                 ]\n             }\n        }]\n    }\n}\n","example2.json":"{\n    \"mockData\": {\n        \"url\": \"\/testing\/destinations\",\n        \"get\": [{\n            \"body\": {\n                \"status\": \"success\",\n                \"data\": [\n                    {\n                        \"UUID\": \"436884F0-6B5B-11E9-AFB8-6F0A7BD2CFEC\",\n                        \"summary\": \"Africa\",\n                        \"parent\": null\n                    }\n                ]\n            }\n        }]\n    }\n}"},"dynamic":{"\/tmp\/32ec1acdc7efc0ec66fec754e87d2158.json":"{\"get\":[{\"headers\":{\"lola\":\"123\",\"baby boo\":\"dudu\",\"X-server\":\"nginx\",\"set-cookies\":[\"lkh=65765\"]},\"proxy\":{\"url\":\"http:\\\/\\\/google.com\",\"headers\":{\"app-id\":\"88374783847\"}},\"with\":null}]}","\/tmp\/034beec6e8bd857d12a44b257fb78d3f.json":"{\"get\":[{\"with\":\"\\\/filter=true\\\/\",\"body\":{\"just another json\":\"object\"}}]}"}}
+            {
+                "static": {
+                    "example.json": "@variableType(string)",
+                    "example2.json": "@variableType(string)"
+                },
+                "dynamic": {
+                    "/tmp/034beec6e8bd857d12a44b257fb78d3f.json": "@variableType(string)",
+                    "/tmp/32ec1acdc7efc0ec66fec754e87d2158.json": "@variableType(string)"
+                }
+            }
             """
