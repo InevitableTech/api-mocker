@@ -7,8 +7,6 @@ services:
       - "${PORT}:${PORT}"
     networks:
       - "${NETWORK}"
-    env_file:
-      - .env.external
     volumes:
       - .:/app
       - ${API_MOCK_STATICS_DIR}:/app/staticMocks
