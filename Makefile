@@ -1,29 +1,28 @@
 build:
-	rm -rf static
 	rm -rf .env.mockapi-config .env.mockapi-external ./vendor/genesis/mock-api/.env ./vendor/genesis/mock-api/.env.external
-	rm -rf Makefile
 	cp ./vendor/genesis/mock-api/.env.template .env.mockapi-config
 	cp ./vendor/genesis/mock-api/.env.external.template .env.mockapi-external
 	ln .env.mockapi-config ./vendor/genesis/mock-api/.env
 	ln .env.mockapi-external ./vendor/genesis/mock-api/.env.external
-	mkdir static
-	cp -R ./vendor/genesis/mock-api/sample-static/* ./static/
-	echo 'up:' > Makefile
+	mkdir -p staticMocks
+	cp -R ./vendor/genesis/mock-api/sample-static/* ./staticMocks/
+	echo '' >> Makefile
+	echo 'mockapi-up:' >> Makefile
 	echo '	$$(MAKE) -C ./vendor/genesis/mock-api up' >> Makefile
 	echo '' >> Makefile
-	echo 'down:' >> Makefile
+	echo 'mockapi-down:' >> Makefile
 	echo '	$$(MAKE) -C ./vendor/genesis/mock-api down' >> Makefile
 	echo '' >> Makefile
-	echo 'install:' >> Makefile
+	echo 'mockapi-install:' >> Makefile
 	echo '	$$(MAKE) -C ./vendor/genesis/mock-api install' >> Makefile
 	echo '' >> Makefile
-	echo 'update:' >> Makefile
+	echo 'mockapi-update:' >> Makefile
 	echo '	$$(MAKE) -C ./vendor/genesis/mock-api update' >> Makefile
 	echo '' >> Makefile
-	echo 'logs:' >> Makefile
+	echo 'mockapi-logs:' >> Makefile
 	echo '	$$(MAKE) -C ./vendor/genesis/mock-api logs' >> Makefile
 	echo '' >> Makefile
-	echo 'config:' >> Makefile
+	echo 'mockapi-config:' >> Makefile
 	echo '	$$(MAKE) -C ./vendor/genesis/mock-api config' >> Makefile
 
 install:
