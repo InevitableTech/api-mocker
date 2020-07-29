@@ -12,5 +12,5 @@ services:
     volumes:
       - .:/app
       - ${API_MOCK_STATICS_DIR}:/app/staticMocks
-      - ${API_MOCK_ROUTES_FOLDER}:/app/routes
+      # - ${API_MOCK_ROUTES_FOLDER}:/app/routes
     command: nodemon --watch . index.php
