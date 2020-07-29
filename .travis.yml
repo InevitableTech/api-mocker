@@ -21,4 +21,5 @@ jobs:
       - make -f ./vendor/genesis/mock-api/Makefile build
       - make mockapi-install
       - make mockapi-up
+      - sleep 5
       - test "$(curl -s http://0.0.0.0:8989/alive)" == "Yes, I am alive!"
