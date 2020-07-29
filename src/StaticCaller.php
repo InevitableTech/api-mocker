@@ -18,11 +18,6 @@ class StaticCaller extends EndpointProvider
 
     private static $staticCalls = [];
 
-    /**
-     * This is wrong, statics need to stay in place.
-     *
-     * @return string
-     */
     public function warmUp(): StaticCaller
     {
         error_log('Warming up statics...');
