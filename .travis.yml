@@ -11,3 +11,12 @@ script:
   - make config
   - docker-compose logs -f &
   - ./vendor/bin/behat
+  - make down
+  - rm .env
+  - mkdir client/vendor/genesis/mock-api
+  - mv . client/vendor/genesis/mock-api
+  - cd client
+  - make -f ./vendor/genesis/mock-api/Makefile build
+  - make mockapi-install
+  - make mockapi-up
+  - test "$(curl -s http://0.0.0.0:8989/alive)" == "Yes, I am alive!"
