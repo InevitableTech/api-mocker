@@ -15,8 +15,8 @@ jobs:
       - docker-compose logs -f &
       - ./vendor/bin/behat
     - script:
-      - mkdir -p /tmp/client/vendor/genesis/mock-api
-      - mv . /tmp/client/vendor/genesis/mock-api
+      - mkdir -p /tmp/client/vendor/genesis/
+      - mv $(pwd) /tmp/client/vendor/genesis/mock-api
       - cd /tmp/client
       - make -f ./vendor/genesis/mock-api/Makefile build
       - make mockapi-install
