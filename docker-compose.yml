@@ -11,5 +11,5 @@ services:
       - .env.external
     volumes:
       - .:/app
-      - ${API_MOCK_STATICS_DIR}:/app/static
+      - ${API_MOCK_STATICS_DIR}:/app/staticMocks
     command: nodemon --watch . index.php
