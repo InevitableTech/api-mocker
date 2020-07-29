@@ -1,6 +1,7 @@
 {
     "name": "genesis/mock-api",
     "description": "Develop and run automated tests against a mock API.",
+    "license": "MIT",
     "require": {
         "php": "~7.1",
         "ext-curl": "*",
