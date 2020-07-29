@@ -486,8 +486,7 @@ Feature:
             """
             {
                 "static": {
-                    "example.json": "@variableType(string)",
-                    "example2.json": "@variableType(string)"
+                    "alive.json": "@variableType(string)"
                 },
                 "dynamic": {
                     "/tmp/034beec6e8bd857d12a44b257fb78d3f.json": "@variableType(string)",

@@ -18,6 +18,12 @@ Start mock-api:
 make mockapi-up
 ```
 
+Test that the mock API is running:
+
+```
+curl http://0.0.0.0:8989/alive
+```
+
 Stop mock-api:
 
 ```

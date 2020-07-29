@@ -12,6 +12,8 @@ use Genesis\Api\Mocker\Base\MethodResponse;
  */
 class StaticCaller extends EndpointProvider
 {
+    const STATIC_MOCKS_DIR = './staticMocks';
+
     private static $size = 0;
 
     private static $staticCalls = [];
@@ -25,7 +27,7 @@ class StaticCaller extends EndpointProvider
     {
         error_log('Warming up statics...');
 
-        $directory = new DirectoryIterator(getenv('API_MOCK_STATICS_DIR'));
+        $directory = new DirectoryIterator(self::STATIC_MOCKS_DIR);
         $size = $directory->getSize();
 
         if (self::$size === $size) {
@@ -49,6 +51,11 @@ class StaticCaller extends EndpointProvider
     public function getResponse($method): MethodResponse
     {
         if (!isset(self::$staticCalls[self::$request->getUri()->getPath()][$method])) {
+            error_log(sprintf(
+                'No dynamic or static mock found for request uri "%s" on method "%s", returning empty response...',
+                self::$request->getUri()->getPath(),
+                $method
+            ));
             return new MethodResponse();
         }
 
