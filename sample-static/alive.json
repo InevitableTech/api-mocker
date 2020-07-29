@@ -1,0 +1,8 @@
+{
+    "mockData": {
+        "url": "/alive",
+        "get": [{
+            "body": "Yes, I am alive!"
+        }]
+    }
+}

@@ -4,22 +4,13 @@ Feature:
     I want to try out some sample scenarios
 
     Scenario: Static request
-        When I request '/countries/list' using HTTP 'get'
+        When I request '/alive' using HTTP 'get'
         Then the response code is 200
         And the "Access-Control-Allow-Headers" response header is "*"
         And the "Access-Control-Allow-Origin" response header is "*"
-        And the response body contains JSON:
+        And the response body is:
             """
-            {
-                "status": "success",
-                "data": [
-                    {
-                        "UUID": "436884F0-6B5B-11E9-AFB8-6F0A7BD2CFEC",
-                        "summary": "Africa",
-                        "parent": null
-                    }
-                ]
-            }
+            Yes, I am alive!
             """
 
     Scenario: fallback to static response when no dynamic request matches
@@ -27,36 +18,29 @@ Feature:
             """
             {
                 "mockData": {
-                    "url": "/testing/ports/abc123",
+                    "url": "/alive",
                     "get": [{
-                        "with": "/id=abc/",
-                        "body": {
-                            "UUID": "theportuuidgoeshere",
-                            "summary": "theportsummarygoeshere"
-                        }
+                        "body": "Some other text"
                     }]
                 }
             }
             """
         And I request '/' using HTTP 'post'
         Then the response code is 200
-
-        When I request '/testing/destinations' using HTTP 'get'
-        Then the response code is 200
         And the "Access-Control-Allow-Headers" response header is "*"
         And the "Access-Control-Allow-Origin" response header is "*"
-        And the response body contains JSON:
+
+        When I request '/alive' using HTTP 'get'
+        Then the response code is 200
+        And the response body is:
             """
-            {
-                "status": "success",
-                "data": [
-                    {
-                        "UUID": "436884F0-6B5B-11E9-AFB8-6F0A7BD2CFEC",
-                        "summary": "Africa",
-                        "parent": null
-                    }
-                ]
-            }
+            Some other text
+            """
+        When I request '/mocks?purge=true' using HTTP 'get'
+        And I request '/alive' using HTTP 'get'
+        Then the response body is:
+            """
+            Yes, I am alive!
             """
 
     Scenario: Dynamic mock with single response and defaults
@@ -486,8 +470,7 @@ Feature:
             """
             {
                 "static": {
-                    "example.json": "@variableType(string)",
-                    "example2.json": "@variableType(string)"
+                    "alive.json": "@variableType(string)"
                 },
                 "dynamic": {
                     "/tmp/034beec6e8bd857d12a44b257fb78d3f.json": "@variableType(string)",

@@ -5,9 +5,21 @@ branches:
   only:
     - master
 
-script:
-  - make install-ci
-  - make up
-  - make config
-  - docker-compose logs -f &
-  - ./vendor/bin/behat
+jobs:
+  include:
+    - script:
+      - pwd
+      - make install-ci
+      - make up
+      - make config
+      - docker-compose logs -f &
+      - ./vendor/bin/behat
+    - script:
+      - mkdir -p /tmp/client/vendor/genesis/
+      - mv $(pwd) /tmp/client/vendor/genesis/mock-api
+      - cd /tmp/client
+      - make -f ./vendor/genesis/mock-api/Makefile build
+      - make mockapi-install
+      - make mockapi-up
+      - sleep 5
+      - test "$(curl -s http://0.0.0.0:8989/alive)" == "Yes, I am alive!"

@@ -29,6 +29,7 @@ class Dispatcher
             error_log('mocked: ' . $method);
             $methodResponse = $controller->consume($controller::$rawInput['mockData']);
         } elseif ($controller instanceof StaticCaller) {
+            error_log('retrieving static response');
             $methodResponse = $controller->warmUp()->$method();
         } else {
             error_log('received response request...');

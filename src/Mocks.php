@@ -12,7 +12,7 @@ class Mocks extends EndpointProvider
     {
         // Static configuration
         $static = [];
-        $directory = new DirectoryIterator(getenv('API_MOCK_STATICS_DIR'));
+        $directory = new DirectoryIterator(StaticCaller::STATIC_MOCKS_DIR);
         foreach ($directory as $fileinfo) {
             if (!$fileinfo->isDot()) {
                 $static[$fileinfo->getFilename()] = file_get_contents($fileinfo->getPathname());

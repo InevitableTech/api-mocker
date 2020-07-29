@@ -9,19 +9,25 @@ How to install
 ```
 composer require genesis/mock-api
 make -f ./vendor/genesis/mock-api/Makefile build
-make install
+make mockapi-install
 ```
 
 Start mock-api:
 
 ```
-make up
+make mockapi-up
+```
+
+Test that the mock API is running:
+
+```
+curl http://0.0.0.0:8989/alive
 ```
 
 Stop mock-api:
 
 ```
-make down
+make mockapi-down
 ```
 
 Find more commands in the generated Makefile.
@@ -29,7 +35,7 @@ Find more commands in the generated Makefile.
 Static mocks
 ------
 
-You can add your static routes (ones that will be available as soon as you boot up the mock API) in the static folder. The data format is defined below and example request already exists.
+You can add your static routes (ones that will be available as soon as you boot up the mock API) in the staticMocks folder. The data format is defined below and example request already exists.
 
 Dynamic mocks
 ------

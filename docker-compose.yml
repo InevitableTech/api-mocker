@@ -7,9 +7,8 @@ services:
       - "${PORT}:${PORT}"
     networks:
       - "${NETWORK}"
-    env_file:
-      - .env.external
     volumes:
       - .:/app
-      - ${API_MOCK_STATICS_DIR}:/app/static
+      - ${API_MOCK_STATICS_DIR}:/app/staticMocks
+      # - ${API_MOCK_ROUTES_FOLDER}:/app/routes
     command: nodemon --watch . index.php
