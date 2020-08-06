@@ -79,7 +79,7 @@ Feature:
             {
                 "mockData": {
                     "url": "/testing/ports/abc123",
-                    "post": [{
+                    "patch": [{
                         "response_code": 205,
                         "headers": {"lola": "123", "baby boo": "dudu"},
                         "body": {
@@ -96,7 +96,7 @@ Feature:
         When the request body is:
             """
             """
-        And I request '/testing/ports/abc123' using HTTP "post"
+        And I request '/testing/ports/abc123' using HTTP "patch"
         Then the response code is 205
         And the "Access-Control-Allow-Headers" response header is "*"
         And the "Access-Control-Allow-Origin" response header is "*"

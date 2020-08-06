@@ -31,6 +31,7 @@ class EndpointResponseResolver
     public static function resolveData(array $response, array $existingData): array
     {
         foreach ($response as $responseType => $responseContent) {
+            // All response types contain an array.
             if (!is_array($responseContent)) {
                 continue;
             }
