@@ -3,6 +3,7 @@
 namespace Genesis\Api\Mocker\Base;
 
 use Genesis\Api\Mocker\Contract\StorageHandler;
+use Genesis\Api\Mocker\Exceptions\UnhandledRequestMethodException;
 use Genesis\Api\Mocker\Service\Curl;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -71,24 +72,13 @@ class EndpointProvider
         return str_replace(['\\', '/'], '---', self::namespace($path));
     }
 
-    public function get(): MethodResponse
+    public function __call($method, array $args): MethodResponse
     {
-        return $this->getResponse('get');
-    }
+        if (!in_array($method, EndpointResponse::$responseTypes)) {
+            throw new UnhandledRequestMethodException($method);
+        }
 
-    public function post(): MethodResponse
-    {
-        return $this->getResponse('post');
-    }
-
-    public function delete(): MethodResponse
-    {
-        return $this->getResponse('delete');
-    }
-
-    public function put(): MethodResponse
-    {
-        return $this->getResponse('put');
+        return $this->getResponse($method);
     }
 
     public function options(): MethodResponse
@@ -106,7 +96,7 @@ class EndpointProvider
     /**
      * @return string
      */
-    public function purge(): MethodResponse
+    public function purgeMocks(): MethodResponse
     {
         return new MethodResponse([
             'msg' => self::$storageHandler->purge(),

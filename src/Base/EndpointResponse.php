@@ -13,20 +13,50 @@ class EndpointResponse
 
     private $method;
 
+    public static $responseTypes = [
+        'options',
+        'get',
+        'post',
+        'delete',
+        'put',
+        'patch',
+        'delete',
+        'copy',
+        'head',
+        'link',
+        'unlink',
+        'purge',
+        'lock',
+        'unlock',
+        'propfind',
+        'view'
+    ];
+
     public function __construct(array $response = null)
     {
         $this->rawResponse = $response;
         $this->url = $response['url'] ?? null;
         $this->response = [
+            'options' => isset($response['options']) ? $this->getResponseContent($response['options']) : null,
             'get' => isset($response['get']) ? $this->getResponseContent($response['get']) : null,
             'post' => isset($response['post']) ? $this->getResponseContent($response['post']) : null,
             'delete' => isset($response['delete']) ? $this->getResponseContent($response['delete']) : null,
             'put' => isset($response['put']) ? $this->getResponseContent($response['put']) : null,
-            'options' => isset($response['options']) ? $this->getResponseContent($response['options']) : null,
+            'patch' => isset($response['patch']) ? $this->getResponseContent($response['patch']) : null,
+            'delete' => isset($response['delete']) ? $this->getResponseContent($response['delete']) : null,
+            'copy' => isset($response['copy']) ? $this->getResponseContent($response['copy']) : null,
+            'head' => isset($response['head']) ? $this->getResponseContent($response['head']) : null,
+            'link' => isset($response['link']) ? $this->getResponseContent($response['link']) : null,
+            'unlink' => isset($response['unlink']) ? $this->getResponseContent($response['unlink']) : null,
+            'purge' => isset($response['purge']) ? $this->getResponseContent($response['purge']) : null,
+            'lock' => isset($response['lock']) ? $this->getResponseContent($response['lock']) : null,
+            'unlock' => isset($response['unlock']) ? $this->getResponseContent($response['unlock']) : null,
+            'propfind' => isset($response['propfind']) ? $this->getResponseContent($response['propfind']) : null,
+            'view' => isset($response['view']) ? $this->getResponseContent($response['view']) : null,
         ];
     }
 
-    private function getResponseContent($responses)
+    private function getResponseContent(array $responses)
     {
         $prepped = [];
         foreach ($responses as $response) {

@@ -21,7 +21,7 @@ class Dispatcher
         $methodResponse = null;
         if ($controller->isPurgeRequest()) {
             error_log('received purge request...');
-            $methodResponse = $controller->purge();
+            $methodResponse = $controller->purgeMocks();
             error_log('purged.');
         } elseif ($controller->isMockingRequest()) {
             error_log('received mock request...');
