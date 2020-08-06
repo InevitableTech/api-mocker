@@ -2,10 +2,12 @@
 
 namespace Genesis\Api\Mocker\Base;
 
+use Genesis\Api\Mocker\Base\EndpointResponseResolver;
 use Genesis\Api\Mocker\Contract\StorageHandler;
 use Genesis\Api\Mocker\Exceptions\UnhandledRequestMethodException;
 use Genesis\Api\Mocker\Service\Curl;
 use Psr\Http\Message\ServerRequestInterface;
+use Exception;
 
 /**
  * EndpointProvider class.
@@ -146,87 +148,38 @@ class EndpointProvider
         throw new Exception('Expected method response');
     }
 
-    /**
-     * {
-     *    "url": "/arya/ports/abc123",
-     *    "get": [{
-     *        "body": {
-     *            "UUID": "theportuuidgoeshere",
-     *            "summary": "theportsummarygoeshere"
-     *        }
-     *    }]
-     * }.
-     *
-     * @return string
-     * @param  mixed  $response
-     */
     public function consume(array $response): MethodResponse
     {
         if (!isset($response['url'])) {
-            throw new \Exception('Url must be provided.');
+            throw new Exception('Url must be provided.');
         }
 
         $endpoint = self::endpoint($response['url']);
 
         try {
             $existingData = self::$storageHandler->get($endpoint);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $existingData = [];
         }
 
-        foreach ($response as $responseType => $responseContent) {
-            if (!is_array($responseContent)) {
-                continue;
-            }
-
-            $this->checkIntegrityOfResponses($responseContent);
-            foreach ($responseContent as $index => $singleResponse) {
-                if (isset($existingData[$responseType])) {
-                    throw new AppException(sprintf(
-                        'Mock for url and method type "%s" already exists. Purge first.',
-                        $responseType
-                    ));
-                }
-
-                if (!isset($singleResponse['with'])) {
-                    $response[$responseType][$index]['with'] = null;
-                } elseif (preg_match($singleResponse['with'], null) === false) {
-                    throw new AppException("Regex pattern '{$singleResponse['with']}' is invalid.");
-                }
-
-                if (isset($singleResponse['consecutive_responses'])) {
-                    $response[$responseType][$index]['index'] = 0;
-                }
-            }
-
-            // Preserve existing mocks.
-            $existingData[$responseType] = $response[$responseType];
-        }
+        $updatedData = EndpointResponseResolver::resolveData($response, $existingData);
 
         try {
-            self::$storageHandler->save($endpoint, $existingData);
+            self::$storageHandler->save($endpoint, $updatedData);
         } catch (\Exception $e) {
+            error_log(json_encode([
+                'status' => 500,
+                'msg' => 'Unable to save mock to file.',
+                'mock' => $updatedData
+            ]));
             return new MethodResponse([
                 'status' => 500,
                 'msg' => 'Unable to save mock to file.',
-                'mock' => $existingData
+                'mock' => $updatedData
             ], [], 500);
         }
 
-        return new MethodResponse(['status' => 'OK', 'mock' => $response], [], 200);
-    }
-
-    private function checkIntegrityOfResponses(array $responses)
-    {
-        foreach ($responses as $index => $response) {
-            if ($index === 0) {
-                continue;
-            }
-
-            if (!isset($response['with'])) {
-                throw new AppException('Each response after the first must include a with regex pattern to match on.');
-            }
-        }
+        return new MethodResponse(['status' => 'OK', 'mock' => $updatedData], [], 200);
     }
 
     public static function forward(string $domain, $body = null, array $headers = [])
