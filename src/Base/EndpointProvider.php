@@ -167,11 +167,6 @@ class EndpointProvider
         try {
             self::$storageHandler->save($endpoint, $updatedData);
         } catch (\Exception $e) {
-            error_log(json_encode([
-                'status' => 500,
-                'msg' => 'Unable to save mock to file.',
-                'mock' => $updatedData
-            ]));
             return new MethodResponse([
                 'status' => 500,
                 'msg' => 'Unable to save mock to file.',
