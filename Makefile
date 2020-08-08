@@ -22,7 +22,7 @@ export makefileContent
 
 build:
 	rm -rf .env.mockapi-config ./vendor/genesis/mock-api/.env
-	ln ./vendor/genesis/mock-api/.env .env.mockapi-config
+	ln $$(pwd)/vendor/genesis/mock-api/.env .env.mockapi-config
 	mkdir -p staticMocks
 	cp -R ./vendor/genesis/mock-api/sample-static/* ./staticMocks/
 	echo 'API_MOCK_STATICS_DIR=./../../../staticMocks' >> .env.mockapi-config
