@@ -9,9 +9,10 @@ jobs:
   include:
     - script:
       - pwd
+      - cat .env
       - make install-ci
-      - make up
       - make config
+      - make up
       - docker-compose logs -f &
       - ./vendor/bin/behat
     - script:
