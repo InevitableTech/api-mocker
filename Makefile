@@ -21,7 +21,7 @@ endef
 export makefileContent
 
 build:
-	rm -rf .env.mockapi-config ./vendor/genesis/mock-api/.env
+	rm -rf .env.mockapi-config
 	ln $$(pwd)/vendor/genesis/mock-api/.env .env.mockapi-config
 	mkdir -p staticMocks
 	cp -R ./vendor/genesis/mock-api/sample-static/* ./staticMocks/
