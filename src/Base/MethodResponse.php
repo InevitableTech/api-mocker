@@ -13,8 +13,13 @@ class MethodResponse
     private $with;
     private $proxy = [];
 
-    public function __construct($body = null, array $headers = [], int $statusCode = null, string $with = null, array $proxy = [])
-    {
+    public function __construct(
+        $body = null,
+        array $headers = [],
+        int $statusCode = null,
+        string $with = null,
+        array $proxy = []
+    ) {
         $this->body = $body;
         $this->headers = $headers;
         $this->statusCode = $statusCode;
